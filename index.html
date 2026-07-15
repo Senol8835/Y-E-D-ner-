@@ -59,7 +59,6 @@
 
     <div class="toplam">Toplam Tutar: <span id="toplam">0</span> TL</div>
     
-    <!-- Buraya adres alanı eklendi -->
     <input type="text" id="adres" class="adres-alani" placeholder="Adres ve İsim Yazın...">
     
     <button class="siparis-btn" onclick="siparisGonder()">Siparişi WhatsApp ile Gönder</button>
@@ -77,7 +76,7 @@
 
     function siparisGonder() {
         let adres = document.getElementById('adres').value;
-        let mesaj = "🔥 YUNUS EMRE DÖNER - YENİ SİPARİŞ 🔥%0A%0A*Adres ve İsim:*%0A" + (adres ? adres : "Yazılmamış") + "%0A%0A*Sipariş Detayı:*%0A";
+        let mesaj = "🔥 YUNUS EMRE DÖNER - YENİ SİPARİŞ 🔥%0A%0A*ADRES VE İSİM:*%0A" + (adres ? adres : "GİRİLMEDİ") + "%0A%0A*SİPARİŞ DETAYI:*%0A";
         for(let i=0; i<14; i++) {
             if(adetler[i] > 0) {
                 let not = document.getElementById('not_'+i).value;
