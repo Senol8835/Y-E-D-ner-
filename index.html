@@ -49,7 +49,7 @@
                                 <button onclick="hesapla(${i}, 1, ${u.fiyat})">+</button>
                             </div>
                         </div>
-                        <input type="text" class="not-kutusu" id="not_${i}" placeholder="Notunuz...">
+                        <input type="text" class="not-kutusu" id="not_${i}" placeholder="Not...">
                     </div>
                 `);
             });
@@ -57,7 +57,7 @@
     </div>
 
     <div class="toplam">Toplam Tutar: <span id="toplam">0</span> TL</div>
-    <button class="siparis-btn" onclick="siparisGonder()">Siparişi Gönder</button>
+    <button class="siparis-btn" onclick="siparisGonder()">Siparişi WhatsApp ile Gönder</button>
 
 <script>
     let toplam = 0;
@@ -71,14 +71,14 @@
     }
 
     function siparisGonder() {
-        let mesaj = "🔥 YUNUS EMRE DÖNER - YENİ SİPARİŞ 🔥%0A%0ASipariş Detayı:%0A";
+        let mesaj = "🔥 YUNUS EMRE DÖNER - YENİ SİPARİŞ 🔥%0A%0A*Sipariş Detayı:*%0A";
         for(let i=0; i<14; i++) {
             if(adetler[i] > 0) {
                 let not = document.getElementById('not_'+i).value;
-                mesaj += adetler[i] + " Adet - " + urunler[i].ad + (not ? " (Not: " + not + ")" : "") + "%0A";
+                mesaj += "*" + adetler[i] + " Adet* - " + urunler[i].ad + (not ? " (Not: " + not + ")" : "") + "%0A";
             }
         }
-        mesaj += "%0AToplam Tutar: " + toplam + " TL%0A%0AAdres ve İsim Yazın:";
+        mesaj += "%0A*Toplam Tutar:* " + toplam + " TL%0A%0A*Adres ve İsim Yazın:*";
         window.open("https://wa.me/905078073532?text=" + mesaj);
     }
 </script>
