@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gaziemir Döner</title>
+<title>Yunus Emre Döner</title>
 <style>
     body { font-family: sans-serif; padding: 10px; background-color: #f4f4f4; }
     .kart { background: white; border-radius: 10px; padding: 15px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
@@ -17,25 +17,25 @@
 </head>
 <body>
 
-    <h2 style="text-align:center;">🔥 Gaziemir Döner 🔥</h2>
+    <h2 style="text-align:center;">🔥 Yunus Emre Döner 🔥</h2>
 
     <div id="liste">
         <script>
             const urunler = [
-                {ad: "Tavuk Döner Dürüm", fiyat: 150},
-                {ad: "Yarım Ekmek Tavuk", fiyat: 150},
-                {ad: "Üç Parça Tavuk", fiyat: 220},
-                {ad: "Üç Parça Et", fiyat: 350},
-                {ad: "Et İskender", fiyat: 450},
-                {ad: "Tavuk İskender", fiyat: 300},
-                {ad: "Kutu Kola", fiyat: 60},
-                {ad: "Kutu Fanta", fiyat: 60},
-                {ad: "Fuse Tea", fiyat: 60},
-                {ad: "Sprite", fiyat: 60},
-                {ad: "Huzur Gazoz", fiyat: 40},
-                {ad: "Niğde Gazoz", fiyat: 40},
-                {ad: "Şalgam (Acılı)", fiyat: 40},
-                {ad: "Şalgam (Acısız)", fiyat: 40}
+                {ad: "Tavuk Döner Dürüm", fiyat: 150, not: "Soğan yok, ketçaplı..."},
+                {ad: "Yarım Ekmek Tavuk", fiyat: 150, not: "Soğan yok, ketçaplı..."},
+                {ad: "Üç Parça Tavuk", fiyat: 220, not: "Soğan yok, ketçaplı..."},
+                {ad: "Üç Parça Et", fiyat: 350, not: "Soğan yok, ketçaplı..."},
+                {ad: "Et İskender", fiyat: 450, not: "Soğan yok, ketçaplı..."},
+                {ad: "Tavuk İskender", fiyat: 300, not: "Soğan yok, ketçaplı..."},
+                {ad: "Kutu Kola", fiyat: 60, not: "Örn: Soğuk olsun..."},
+                {ad: "Kutu Fanta", fiyat: 60, not: "Örn: Soğuk olsun..."},
+                {ad: "Fuse Tea", fiyat: 60, not: "Örn: Soğuk olsun..."},
+                {ad: "Sprite", fiyat: 60, not: "Örn: Soğuk olsun..."},
+                {ad: "Huzur Gazoz", fiyat: 40, not: "Örn: Soğuk olsun..."},
+                {ad: "Niğde Gazoz", fiyat: 40, not: "Örn: Soğuk olsun..."},
+                {ad: "Şalgam (Acılı)", fiyat: 40, not: "Örn: Soğuk olsun..."},
+                {ad: "Şalgam (Acısız)", fiyat: 40, not: "Örn: Soğuk olsun..."}
             ];
             
             urunler.forEach((u, i) => {
@@ -49,7 +49,7 @@
                                 <button onclick="hesapla(${i}, 1, ${u.fiyat})">+</button>
                             </div>
                         </div>
-                        <input type="text" class="not-kutusu" id="not_${i}" placeholder="Not (Soğan yok, ketçaplı...)">
+                        <input type="text" class="not-kutusu" id="not_${i}" placeholder="${u.not}">
                     </div>
                 `);
             });
