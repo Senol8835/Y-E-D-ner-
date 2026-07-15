@@ -10,41 +10,61 @@
     .urun-ust { display: flex; justify-content: space-between; align-items: center; }
     .buton-grubu { display: flex; align-items: center; gap: 10px; }
     button { width: 40px; height: 40px; border-radius: 5px; border: none; background: #e74c3c; color: white; font-size: 20px; }
-    .not-kutusu { width: 100%; margin-top: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
-    .toplam { font-size: 1.2rem; font-weight: bold; margin-top: 20px; }
+    .not-kutusu { width: 100%; margin-top: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
+    .toplam { font-size: 1.3rem; font-weight: bold; margin-top: 20px; padding: 10px; background: #fff; border-radius: 10px; }
 </style>
 </head>
 <body>
 
     <h2 style="text-align:center;">🔥 Gaziemir Döner 🔥</h2>
 
-    <!-- Ürün Şablonu (Bu yapıyı istediğin ürüne uyguladım) -->
-    <div class="kart">
-        <div class="urun-ust">
-            <div><strong>Tavuk Döner Dürüm</strong><br>150 TL</div>
-            <div class="buton-grubu">
-                <button onclick="degistir('Tavuk_Dürüm', 150, -1)">-</button>
-                <span id="adet_Tavuk_Dürüm">0</span>
-                <button onclick="degistir('Tavuk_Dürüm', 150, 1)">+</button>
-            </div>
-        </div>
-        <input type="text" class="not-kutusu" placeholder="Not (Soğan yok, ketçaplı...)">
+    <!-- Ürünler Listesi -->
+    <div id="urunler">
+        <!-- Buraya ürünleri fonksiyonel ekliyoruz -->
+        <script>
+            const menum = [
+                {ad: "Tavuk Döner Dürüm", fiyat: 150},
+                {ad: "Yarım Ekmek Tavuk Döner", fiyat: 150},
+                {ad: "Üç Parça Tavuk", fiyat: 220},
+                {ad: "Üç Parça Et", fiyat: 350},
+                {ad: "Et İskender", fiyat: 450},
+                {ad: "Buçuk Et İskender", fiyat: 650},
+                {ad: "Tavuk İskender", fiyat: 300},
+                {ad: "Buçuk Tavuk İskender", fiyat: 450},
+                {ad: "Kutu Kola", fiyat: 60},
+                {ad: "Kutu Fanta", fiyat: 60},
+                {ad: "Şalgam (Acılı)", fiyat: 40}
+            ];
+
+            menum.forEach((urun, index) => {
+                document.write(`
+                    <div class="kart">
+                        <div class="urun-ust">
+                            <div><strong>${urun.ad}</strong><br>${urun.fiyat} TL</div>
+                            <div class="buton-grubu">
+                                <button onclick="degistir(${index}, -1, ${urun.fiyat})">-</button>
+                                <span id="adet_${index}">0</span>
+                                <button onclick="degistir(${index}, 1, ${urun.fiyat})">+</button>
+                            </div>
+                        </div>
+                        <input type="text" class="not-kutusu" placeholder="Not (Soğan yok, ketçaplı...)">
+                    </div>
+                `);
+            });
+        </script>
     </div>
 
-    <!-- Diğer ürünleri de aynı kart içine alacağız. Şimdilik temel yapıyı kurdum. -->
     <div class="toplam">Sepet Toplamı: <span id="toplam">0</span> TL</div>
 
 <script>
-    let sepet = {};
     let toplam = 0;
-    function degistir(urun, fiyat, miktar) {
-        if (!sepet[urun]) sepet[urun] = 0;
-        sepet[urun] = Math.max(0, sepet[urun] + miktar);
-        document.getElementById('adet_' + urun).innerText = sepet[urun];
+    let adetler = new Array(11).fill(0);
+    function degistir(id, miktar, fiyat) {
+        adetler[id] = Math.max(0, adetler[id] + miktar);
+        document.getElementById('adet_' + id).innerText = adetler[id];
         toplam = Math.max(0, toplam + (miktar * fiyat));
         document.getElementById('toplam').innerText = toplam;
     }
 </script>
 </body>
 </html>
-z
