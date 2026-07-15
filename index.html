@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gaziemir Döner - Hızlı Sipariş</title>
+    <style>
+        body { font-family: sans-serif; padding: 10px; background: #f3f4f6; margin-bottom: 100px; }
+        .baslik { text-align: center; color: #dc2626; margin-bottom: 20px; }
+        .kart { background: white; padding: 15px; margin-bottom: 10px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.05); }
+        .urun-ust { display: flex; justify-content: space-between; align-items: center; }
+        .urun-detay { flex: 1; }
+        .buton-grubu { display: flex; align-items: center; gap: 10px; }
+        .btn-islem { background: #dc2626; color: white; border: none; width: 32px; height: 32px; border-radius: 50%; font-weight: bold; font-size: 18px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .btn-eksi { background: #9ca3af; }
+        .adet-text { font-weight: bold; font-size: 16px; min-width: 15px; text-align: center; }
+        .not-kutusu { width: 100%; border: 1px solid #d1d5db; border-radius: 6px; padding: 6px; margin-top: 10px; font-size: 13px; box-sizing: border-box; display: none; }
+        .yesil-btn { background: #22c55e; width: 100%; padding: 15px; border-radius: 8px; font-size: 16px; margin-top: 15px; color: white; font-weight: bold; border: none; cursor: pointer; }
+    </style>
+</head>
+<body>
+
+    <div class="baslik">
+        <h2 style="margin: 0;">🔥 Gaziemir Döner 🔥</h2>
+        <p style="margin: 5px 0 0 0; font-size: 14px; color: #555;">Siparişini Seç, Tercihini Yaz, Anında Gönder!</p>
+    </div>
+    
+    <!-- Ürün 1 -->
+    <div class="kart">
+        <div class="urun-ust">
+            <div class="urun-detay">
+                <b>Tavuk Döner Dürüm</b><br>
+                <span style="color:#dc2626; font-weight: bold;">120 TL</span>
+            </div>
+            <div class="buton-grubu">
+                <button class="btn-islem btn-eksi" onclick="degistir('Tavuk Döner Dürüm', 120, -1)">-</button>
+                <span class="adet-text" id="adet-Tavuk_Döner_Dürüm">0</span>
+                <button class="btn-islem" onclick="degistir('Tavuk Döner Dürüm', 120, 1)">+</button>
+            </div>
+        </div>
+        <input type="text" id="not-Tavuk_Döner_Dürüm" class="not-kutusu" placeholder="Örn: Soğansız, bol ketçap mayonezli...">
+    </div>
+
+    <!-- Ürün 2 -->
+    <div class="kart">
+        <div class="urun-ust">
+            <div class="urun-detay">
+                <b>Yarım Ekmek Tavuk Döner</b><br>
+                <span style="color:#dc2626; font-weight: bold;">110 TL</span>
+            </div>
+            <div class="buton-grubu">
+                <button class="btn-islem btn-eksi" onclick="degistir('Yarım Ekmek Tavuk Döner', 110, -1)">-</button>
+                <span class="adet-text" id="adet-Yarım_Ekmek_Tavuk_Döner">0</span>
+                <button class="btn-islem" onclick="degistir('Yarım Ekmek Tavuk Döner', 110, 1)">+</button>
+            </div>
+        </div>
+        <input type="text" id="not-Yarım_Ekmek_Tavuk_Döner" class="not-kutusu" placeholder="Örn: Ketçapsız, bol mayonezli...">
+    </div>
+
+    <!-- Ürün 3 -->
+    <div class="kart">
+        <div class="urun-ust">
+            <div class="urun-detay">
+                <b>Et Döner Dürüm</b><br>
+                <span style="color:#dc2626; font-weight: bold;">220 TL</span>
+            </div>
+            <div class="buton-grubu">
+                <button class="btn-islem btn-eksi" onclick="degistir('Et Döner Dürüm', 220, -1)">-</button>
+                <span class="adet-text" id="adet-Et_Döner_Dürüm">0</span>
+                <button class="btn-islem" onclick="degistir('Et Döner Dürüm', 220, 1)">+</button>
+            </div>
+        </div>
+        <input type="text" id="not-Et_Döner_Dürüm" class="not-kutusu" placeholder="Örn: Soğan olsun, sosu bol...">
+    </div>
+
+    <!-- Ürün 4 -->
+    <div class="kart">
+        <div class="urun-ust">
+            <div class="urun-detay">
+                <b>Büyük Ayran (300ml)</b><br>
+                <span style="color:#dc2626; font-weight: bold;">30 TL</span>
+            </div>
+            <div class="buton-grubu">
+                <button class="btn-islem btn-eksi" onclick="degistir('Büyük Ayran', 30, -1)">-</button>
+                <span class="adet-text" id="adet-Büyük_Ayran">0</span>
+                <button class="btn-islem" onclick="degistir('Büyük Ayran', 30, 1)">+</button>
+            </div>
+        </div>
+        <input type="text" id="not-Büyük_Ayran" class="not-kutusu" placeholder="Örn: Soğuk olsun...">
+    </div>
+
+    <hr style="border: 0; border-top: 1px solid #ccc; margin-top: 20px;">
+
+    <!-- Sepet Bilgisi -->
+    <div style="margin-top:15px; font-weight:bold; color: #374151;">Sepetiniz: <br><span id="sepet-listesi" style="font-weight: normal; color: #4b5563;">Henüz ürün seçilmedi.</span></div>
+    <div style="font-size:20px; font-weight:bold; margin-top:15px; color: #dc2626;">Toplam: <span id="toplam">0</span> TL</div>
+
+    <!-- Sipariş Gönder Butonu -->
+    <button class="yesil-btn" onclick="gonder()">WhatsApp ile Sipariş Ver</button>
+
+    <script>
+        const KENDI_NUMARAM = "905078073532"; 
+
+        let sepet = {};
+        let toplam = 0;
+
+        function degistir(ad, fiyat, miktar) {
+            if (!sepet[ad]) sepet[ad] = 0;
+            
+            sepet[ad] += miktar;
+            
+            if (sepet[ad] < 0) {
+                sepet[ad] = 0;
+            }
+
+            let elemanId = "adet-" + ad.replace(/ /g, "_");
+            document.getElementById(elemanId).innerText = sepet[ad];
+
+            let notId = "not-" + ad.replace(/ /g, "_");
+            if (sepet[ad] > 0) {
+                document.getElementById(notId).style.display = "block";
+            } else {
+                document.getElementById(notId).style.display = "none";
+                document.getElementById(notId).value = ""; 
+            }
+
+            sepetiHesapla();
+        }
+
+        function sepetiHesapla() {
+            toplam = 0;
+            let sepetMetni = [];
+
+            for (let urun in sepet) {
+                let adet = sepet[urun];
+                if (adet > 0) {
+                    let notId = "not-" + urun.replace(/ /g, "_");
+                    let urunNotu = document.getElementById(notId).value;
+                    
+                    let metin = `${adet} adet ${urun}`;
+                    if(urunNotu) {
+                        metin += ` (${urunNotu})`;
+                    }
+                    sepetMetni.push(metin);
+                    
+                    if (urun === 'Tavuk Döner Dürüm') toplam += adet * 120;
+                    if (urun === 'Yarım Ekmek Tavuk Döner') toplam += adet * 110;
+                    if (urun === 'Et Döner Dürüm') toplam += adet * 220;
+                    if (urun === 'Büyük Ayran') toplam += adet * 30;
+                }
+            }
+
+            if (sepetMetni.length === 0) {
+                document.getElementById('sepet-listesi').innerText = "Henüz ürün seçilmedi.";
+            } else {
+                document.getElementById('sepet-listesi').innerText = sepetMetni.join(', ');
+            }
+            document.getElementById('toplam').innerText = toplam;
+        }
+
+        document.querySelectorAll('.not-kutusu').forEach(input => {
+            input.addEventListener('input', sepetiHesapla);
+        });
+
+        function gonder() {
+            let siparisler = [];
+            for (let urun in sepet) {
+                if (sepet[urun] > 0) {
+                    let notId = "not-" + urun.replace(/ /g, "_");
+                    let urunNotu = document.getElementById(notId).value;
+                    
+                    let detay = `*${sepet[urun]} Adet* - ${urun}`;
+                    if (urunNotu) {
+                        detay += ` _(Not: ${urunNotu})_`; 
+                    }
+                    siparisler.push(detay);
+                }
+            }
+
+            if(siparisler.length === 0) return alert('Lütfen önce menüden dönerinizi seçin!');
+            
+            let mesaj = `🔥 *GAZİEMİR DÖNER - YENİ SİPARİŞ* 🔥\n\n`;
+            mesaj += `*Sipariş Detayı:*\n${siparisler.join('\n')}\n\n`;
+            mesaj += `*Toplam Tutar:* ${toplam} TL\n\n`;
+            mesaj += `*Adres ve İsim Yazın:* \n`;
+            
+            window.open(`https://api.whatsapp.com/send?phone=${KENDI_NUMARAM}&text=${encodeURIComponent(mesaj)}`);
+        }
+    </script>
+</body>
+</html>
