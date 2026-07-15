@@ -12,35 +12,67 @@
     button { width: 40px; height: 40px; border-radius: 5px; border: none; background: #e74c3c; color: white; font-size: 20px; }
     .not-kutusu { width: 100%; margin-top: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
     .toplam { font-size: 1.3rem; font-weight: bold; margin-top: 20px; padding: 10px; background: #fff; border-radius: 10px; text-align: center;}
+    .siparis-btn { width: 100%; padding: 15px; background: #25d366; color: white; border: none; border-radius: 10px; font-size: 1.2rem; margin-top: 10px; font-weight: bold; cursor: pointer; }
 </style>
 </head>
 <body>
 
     <h2 style="text-align:center;">🔥 Gaziemir Döner 🔥</h2>
 
-    <!-- Ürünler -->
     <div id="liste">
-        <div class="kart"><div class="urun-ust"><div><strong>Tavuk Döner Dürüm</strong><br>150 TL</div><div class="buton-grubu"><button onclick="hesapla('Tavuk Döner Dürüm', 150, -1)">-</button><span id="adet_Tavuk Döner Dürüm">0</span><button onclick="hesapla('Tavuk Döner Dürüm', 150, 1)">+</button></div></div><input type="text" class="not-kutusu" placeholder="Not (Soğan yok...)"></div>
-        <div class="kart"><div class="urun-ust"><div><strong>Yarım Ekmek Tavuk</strong><br>150 TL</div><div class="buton-grubu"><button onclick="hesapla('Yarım Ekmek Tavuk', 150, -1)">-</button><span id="adet_Yarım Ekmek Tavuk">0</span><button onclick="hesapla('Yarım Ekmek Tavuk', 150, 1)">+</button></div></div><input type="text" class="not-kutusu" placeholder="Not..."></div>
-        <div class="kart"><div class="urun-ust"><div><strong>Üç Parça Tavuk</strong><br>220 TL</div><div class="buton-grubu"><button onclick="hesapla('Üç Parça Tavuk', 220, -1)">-</button><span id="adet_Üç Parça Tavuk">0</span><button onclick="hesapla('Üç Parça Tavuk', 220, 1)">+</button></div></div></div>
-        <div class="kart"><div class="urun-ust"><div><strong>Üç Parça Et</strong><br>350 TL</div><div class="buton-grubu"><button onclick="hesapla('Üç Parça Et', 350, -1)">-</button><span id="adet_Üç Parça Et">0</span><button onclick="hesapla('Üç Parça Et', 350, 1)">+</button></div></div></div>
-        <div class="kart"><div class="urun-ust"><div><strong>Et İskender</strong><br>450 TL</div><div class="buton-grubu"><button onclick="hesapla('Et İskender', 450, -1)">-</button><span id="adet_Et İskender">0</span><button onclick="hesapla('Et İskender', 450, 1)">+</button></div></div></div>
-        <div class="kart"><div class="urun-ust"><div><strong>Tavuk İskender</strong><br>300 TL</div><div class="buton-grubu"><button onclick="hesapla('Tavuk İskender', 300, -1)">-</button><span id="adet_Tavuk İskender">0</span><button onclick="hesapla('Tavuk İskender', 300, 1)">+</button></div></div></div>
-        <div class="kart"><div class="urun-ust"><div><strong>Kutu Kola</strong><br>60 TL</div><div class="buton-grubu"><button onclick="hesapla('Kutu Kola', 60, -1)">-</button><span id="adet_Kutu Kola">0</span><button onclick="hesapla('Kutu Kola', 60, 1)">+</button></div></div></div>
+        <script>
+            const urunler = [
+                {ad: "Tavuk Döner Dürüm", fiyat: 150},
+                {ad: "Yarım Ekmek Tavuk", fiyat: 150},
+                {ad: "Üç Parça Tavuk", fiyat: 220},
+                {ad: "Üç Parça Et", fiyat: 350},
+                {ad: "Et İskender", fiyat: 450},
+                {ad: "Tavuk İskender", fiyat: 300},
+                {ad: "Kutu Kola", fiyat: 60}
+            ];
+            
+            urunler.forEach((u, i) => {
+                document.write(`
+                    <div class="kart">
+                        <div class="urun-ust">
+                            <div><strong>${u.ad}</strong><br>${u.fiyat} TL</div>
+                            <div class="buton-grubu">
+                                <button onclick="hesapla(${i}, -1, ${u.fiyat})">-</button>
+                                <span id="adet_${i}">0</span>
+                                <button onclick="hesapla(${i}, 1, ${u.fiyat})">+</button>
+                            </div>
+                        </div>
+                        <input type="text" class="not-kutusu" id="not_${i}" placeholder="Not (Soğan yok, ketçaplı...)">
+                    </div>
+                `);
+            });
+        </script>
     </div>
 
-    <div class="toplam">Sepet Toplamı: <span id="toplam">0</span> TL</div>
+    <div class="toplam">Toplam: <span id="toplam">0</span> TL</div>
+    <button class="siparis-btn" onclick="siparisGonder()">Siparişi WhatsApp ile Gönder</button>
 
 <script>
     let toplam = 0;
-    function hesapla(isim, fiyat, miktar) {
-        let span = document.getElementById('adet_' + isim);
-        let mevcutAdet = parseInt(span.innerText);
-        let yeniAdet = Math.max(0, mevcutAdet + miktar);
-        
-        span.innerText = yeniAdet;
+    let adetler = new Array(7).fill(0);
+    
+    function hesapla(id, miktar, fiyat) {
+        adetler[id] = Math.max(0, adetler[id] + miktar);
+        document.getElementById('adet_' + id).innerText = adetler[id];
         toplam = Math.max(0, toplam + (miktar * fiyat));
         document.getElementById('toplam').innerText = toplam;
+    }
+
+    function siparisGonder() {
+        let mesaj = "Siparişlerim:%0A";
+        for(let i=0; i<7; i++) {
+            if(adetler[i] > 0) {
+                let not = document.getElementById('not_'+i).value;
+                mesaj += adetler[i] + " adet " + urunler[i].ad + (not ? " (" + not + ")" : "") + "%0A";
+            }
+        }
+        mesaj += "%0AToplam: " + toplam + " TL";
+        window.open("https://wa.me/905078073532?text=" + mesaj);
     }
 </script>
 </body>
