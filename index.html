@@ -28,7 +28,14 @@
                 {ad: "Üç Parça Et", fiyat: 350},
                 {ad: "Et İskender", fiyat: 450},
                 {ad: "Tavuk İskender", fiyat: 300},
-                {ad: "Kutu Kola", fiyat: 60}
+                {ad: "Kutu Kola", fiyat: 60},
+                {ad: "Kutu Fanta", fiyat: 60},
+                {ad: "Fuse Tea", fiyat: 60},
+                {ad: "Sprite", fiyat: 60},
+                {ad: "Huzur Gazoz", fiyat: 40},
+                {ad: "Niğde Gazoz", fiyat: 40},
+                {ad: "Şalgam (Acılı)", fiyat: 40},
+                {ad: "Şalgam (Acısız)", fiyat: 40}
             ];
             
             urunler.forEach((u, i) => {
@@ -54,7 +61,7 @@
 
 <script>
     let toplam = 0;
-    let adetler = new Array(7).fill(0);
+    let adetler = new Array(14).fill(0);
     
     function hesapla(id, miktar, fiyat) {
         adetler[id] = Math.max(0, adetler[id] + miktar);
@@ -65,7 +72,7 @@
 
     function siparisGonder() {
         let mesaj = "Siparişlerim:%0A";
-        for(let i=0; i<7; i++) {
+        for(let i=0; i<14; i++) {
             if(adetler[i] > 0) {
                 let not = document.getElementById('not_'+i).value;
                 mesaj += adetler[i] + " adet " + urunler[i].ad + (not ? " (" + not + ")" : "") + "%0A";
