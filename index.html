@@ -13,6 +13,7 @@
     .not-kutusu { width: 100%; margin-top: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 5px; box-sizing: border-box; }
     .toplam { font-size: 1.3rem; font-weight: bold; margin-top: 20px; padding: 10px; background: #fff; border-radius: 10px; text-align: center;}
     .siparis-btn { width: 100%; padding: 15px; background: #25d366; color: white; border: none; border-radius: 10px; font-size: 1.2rem; margin-top: 10px; font-weight: bold; cursor: pointer; }
+    .adres-alani { width: 100%; margin-top: 15px; padding: 10px; border: 2px solid #25d366; border-radius: 10px; box-sizing: border-box; font-size: 1rem; }
 </style>
 </head>
 <body>
@@ -57,6 +58,10 @@
     </div>
 
     <div class="toplam">Toplam Tutar: <span id="toplam">0</span> TL</div>
+    
+    <!-- Buraya adres alanı eklendi -->
+    <input type="text" id="adres" class="adres-alani" placeholder="Adres ve İsim Yazın...">
+    
     <button class="siparis-btn" onclick="siparisGonder()">Siparişi WhatsApp ile Gönder</button>
 
 <script>
@@ -71,14 +76,15 @@
     }
 
     function siparisGonder() {
-        let mesaj = "🔥 YUNUS EMRE DÖNER - YENİ SİPARİŞ 🔥%0A%0A*Sipariş Detayı:*%0A";
+        let adres = document.getElementById('adres').value;
+        let mesaj = "🔥 YUNUS EMRE DÖNER - YENİ SİPARİŞ 🔥%0A%0A*Adres ve İsim:*%0A" + (adres ? adres : "Yazılmamış") + "%0A%0A*Sipariş Detayı:*%0A";
         for(let i=0; i<14; i++) {
             if(adetler[i] > 0) {
                 let not = document.getElementById('not_'+i).value;
                 mesaj += "*" + adetler[i] + " Adet* - " + urunler[i].ad + (not ? " (Not: " + not + ")" : "") + "%0A";
             }
         }
-        mesaj += "%0A*Toplam Tutar:* " + toplam + " TL%0A%0A*Adres ve İsim Yazın:*";
+        mesaj += "%0A*Toplam Tutar:* " + toplam + " TL";
         window.open("https://wa.me/905078073532?text=" + mesaj);
     }
 </script>
