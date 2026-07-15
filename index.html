@@ -2,48 +2,49 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
-<title>Sipariş Sayfası</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaziemir Döner</title>
 <style>
-    body { font-family: sans-serif; padding: 10px; }
-    .kart { border: 1px solid #ddd; padding: 10px; margin-bottom: 10px; }
+    body { font-family: sans-serif; padding: 10px; background-color: #f4f4f4; }
+    .kart { background: white; border-radius: 10px; padding: 15px; margin-bottom: 10px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
     .urun-ust { display: flex; justify-content: space-between; align-items: center; }
-    .not-kutusu { width: 100%; padding: 5px; margin-top: 5px; box-sizing: border-box; }
-    .toplam-alan { font-size: 1.5rem; font-weight: bold; margin-top: 20px; padding: 10px; border-top: 2px solid #000; }
+    .buton-grubu { display: flex; align-items: center; gap: 10px; }
+    button { width: 40px; height: 40px; border-radius: 5px; border: none; background: #e74c3c; color: white; font-size: 20px; }
+    .not-kutusu { width: 100%; margin-top: 10px; padding: 8px; border: 1px solid #ddd; border-radius: 5px; }
+    .toplam { font-size: 1.2rem; font-weight: bold; margin-top: 20px; }
 </style>
 </head>
 <body>
 
-    <!-- Ürünler -->
-    <div class="kart">
-        <div class="urun-ust"><h3>Tavuk Döner Dürüm</h3><span>150 TL</span><button onclick="ekle('Tavuk Döner Dürüm', 150)">+</button></div>
-        <input type="text" class="not-kutusu" placeholder="Not (Soğanlı, Ketçap vb.)">
-    </div>
-    <div class="kart">
-        <div class="urun-ust"><h3>Yarım Ekmek Tavuk Döner</h3><span>150 TL</span><button onclick="ekle('Yarım Ekmek Tavuk', 150)">+</button></div>
-        <input type="text" class="not-kutusu" placeholder="Not (Soğanlı, Ketçap vb.)">
-    </div>
-    <div class="kart"><div class="urun-ust"><h3>Üç Parça Tavuk</h3><span>220 TL</span><button onclick="ekle('Üç Parça Tavuk', 220)">+</button></div></div>
-    <div class="kart"><div class="urun-ust"><h3>Üç Parça Et</h3><span>350 TL</span><button onclick="ekle('Üç Parça Et', 350)">+</button></div></div>
-    <div class="kart"><div class="urun-ust"><h3>Et İskender</h3><span>450 TL</span><button onclick="ekle('Et İskender', 450)">+</button></div></div>
-    <div class="kart"><div class="urun-ust"><h3>Buçuk Et İskender</h3><span>650 TL</span><button onclick="ekle('Buçuk Et İskender', 650)">+</button></div></div>
-    <div class="kart"><div class="urun-ust"><h3>Tavuk İskender</h3><span>300 TL</span><button onclick="ekle('Tavuk İskender', 300)">+</button></div></div>
-    <div class="kart"><div class="urun-ust"><h3>Buçuk Tavuk İskender</h3><span>450 TL</span><button onclick="ekle('Buçuk Tavuk İskender', 450)">+</button></div></div>
+    <h2 style="text-align:center;">🔥 Gaziemir Döner 🔥</h2>
 
-    <div style="font-weight: bold; margin-top: 20px;">İçecekler</div>
-    <div class="kart"><div class="urun-ust"><h3>Kutu Kola</h3><span>60 TL</span><button onclick="ekle('Kutu Kola', 60)">+</button></div></div>
-    <div class="kart"><div class="urun-ust"><h3>Kutu Fanta</h3><span>60 TL</span><button onclick="ekle('Kutu Fanta', 60)">+</button></div></div>
-    <div class="kart"><div class="urun-ust"><h3>Şalgam (Acılı)</h3><span>40 TL</span><button onclick="ekle('Şalgam (Acılı)', 40)">+</button></div></div>
+    <!-- Ürün Şablonu (Bu yapıyı istediğin ürüne uyguladım) -->
+    <div class="kart">
+        <div class="urun-ust">
+            <div><strong>Tavuk Döner Dürüm</strong><br>150 TL</div>
+            <div class="buton-grubu">
+                <button onclick="degistir('Tavuk_Dürüm', 150, -1)">-</button>
+                <span id="adet_Tavuk_Dürüm">0</span>
+                <button onclick="degistir('Tavuk_Dürüm', 150, 1)">+</button>
+            </div>
+        </div>
+        <input type="text" class="not-kutusu" placeholder="Not (Soğan yok, ketçaplı...)">
+    </div>
 
-    <!-- Toplam Hesaplama -->
-    <div class="toplam-alan">Toplam: <span id="toplam">0</span> TL</div>
+    <!-- Diğer ürünleri de aynı kart içine alacağız. Şimdilik temel yapıyı kurdum. -->
+    <div class="toplam">Sepet Toplamı: <span id="toplam">0</span> TL</div>
 
 <script>
+    let sepet = {};
     let toplam = 0;
-    function ekle(urun, fiyat) {
-        toplam += fiyat;
+    function degistir(urun, fiyat, miktar) {
+        if (!sepet[urun]) sepet[urun] = 0;
+        sepet[urun] = Math.max(0, sepet[urun] + miktar);
+        document.getElementById('adet_' + urun).innerText = sepet[urun];
+        toplam = Math.max(0, toplam + (miktar * fiyat));
         document.getElementById('toplam').innerText = toplam;
-        alert(urun + " sepete eklendi!");
     }
 </script>
 </body>
 </html>
+z
